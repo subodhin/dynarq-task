@@ -64,17 +64,6 @@ def validate_invoice(invoice, today_date):
 def calculate_days_overdue(due_date, today_date):
     """Return calendar days overdue. Future due dates produce a negative value."""
     return (today_date - due_date).days
-# def build_plan(invoices, sent, today):
-#     """Return the plan for `today` as a dict with the keys today, actions and skipped.
-
-#     invoices: the list from invoices.json
-#     sent: the list from sent.json
-#     today: a date string, YYYY-MM-DD
-#     """
-#     # TODO: apply the rules in README.md part 1 and fill both lists,
-#     # sorted by invoice id. Each action also needs a message (part 3).
-#     return {"today": today, "actions": [], "skipped": []}
-
 
 def build_plan(invoices, sent, today):
     """Build a reminder plan for the given date."""
@@ -137,17 +126,6 @@ def build_plan(invoices, sent, today):
         if already_sent(invoice_id, step, sent):
             continue
        
-        # actions.append({
-        #     "invoice_id": invoice_id,
-        #     "customer": invoice["customer"],
-        #     "amount": invoice["amount"],
-        #     "currency": invoice["currency"],
-        #     "due_date": invoice["due_date"],
-        #     "days_overdue": days_overdue,
-        #     "step": step,
-        #     "message": build_message(invoice, step, days_overdue),
-        #     "needs_approval": step in ("firm", "final"),        })
-
         actions.append({
             "invoice_id": invoice_id,
             "step": step,
@@ -240,14 +218,7 @@ def main():
     parser.add_argument("--out", required=True, help="path to write the plan JSON")
     args = parser.parse_args()
 
-    # invoices = read_json(args.invoices)
-    # sent = read_json(args.sent)
-    # plan = build_plan(invoices, sent, args.today)
-
-    # with open(args.out, "w", encoding="utf-8") as f:
-    #     json.dump(plan, f, indent=2)
-    #     f.write("\n")
-
+ 
     try:
         invoices = read_json(args.invoices)
         sent = read_json(args.sent)
